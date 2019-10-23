@@ -11,18 +11,15 @@ export default class MyAjax extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://api.example.com/items")
+    fetch("https://api.github.com/users/" + this.props.id)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.items
+            items: result
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: true,
@@ -39,11 +36,11 @@ export default class MyAjax extends React.Component {
         } else if (!isLoaded) {
             return <div > Loading... < /div>;
         } else {
-            return ( <ul> {
-              items.map(item => (
-                <li key={item.name} > {item.name} {item.price} </li>
-              ))
-              } </ul>
+            return ( <ul>
+                <li > Nome: {items.name}{ console.log(items)} </li>
+                <li > Usuário: {items.login} </li>
+                <li > Bio: {items.bio} </li>
+              </ul>
             );
         }
     }
